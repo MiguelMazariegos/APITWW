@@ -1,0 +1,26 @@
+<h3 class="center-align">Dashboard</h3>
+<h5>Tus comentarios:</h5>
+{{#if comentarios}}
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>ID del show</th>
+                <th>Show</th>
+                <th>Comentario</th>
+                <th>Estado</th>
+                <th>Fecha creacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each comentarios}}
+               <td><a href="/api/shows/{{showId}}">{{showId}}</a></td> 
+               <td>{{show}}</td>
+               <td>{{comentario}}</td>
+               <td><span class="dash-status">{{status}}</span></td>
+               <td>{{fecha_creacion}}</td>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>No se tienen comentarios</p>
+{{/if}}

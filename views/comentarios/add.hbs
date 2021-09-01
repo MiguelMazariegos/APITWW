@@ -1,0 +1,33 @@
+<h3>Agregar Comentario</h3>
+<div class="row">
+    <form action="/api/comentarios/add" method="POST" class="col s12">
+        <div class="row">
+            <div class="input-field">
+                <input type="text" id="showId" name="showId">
+                <label for="showId">ID del show</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <select name="status" id="status">
+                    <option value="publico">Publico</option>
+                    <option value="privado">Privado</option>
+                </select>
+                <label for="status">Estado</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <h5>Escribe tu comentario:</h5>
+                <textarea id="comentario" name="comentario"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="submit" value="Guardar" class="btn">
+            <a href="/dashboard" class="btn orange">Cancelar</a>
+        </div>
+    </form>
+</div>

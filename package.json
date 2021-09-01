@@ -1,0 +1,34 @@
+{
+  "name": "restapi_tribal",
+  "version": "1.0.0",
+  "description": "RESTful API para la prueba de aplicación técnica de Tribal Guatemala ",
+  "main": "app.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app",
+    "dev": "cross-env NODE_ENV=development nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Miguel Mazariegos",
+  "license": "MIT",
+  "dependencies": {
+    "connect-mongo": "^4.5.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.3",
+    "express-session": "^1.17.2",
+    "imdb-api": "^4.4.1",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.1",
+    "mongoose": "^6.0.3",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.12"
+  }
+}
