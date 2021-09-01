@@ -7,13 +7,40 @@ const Comentario = require('../models/comentario');
 
 /**
  * @swagger
- * paths: 
- *  /api/shows:
- *  get:
- *      description: obtiene datos de api tvMaze
- *      responses:
- *          '200':
- *           description: Respuesta exitosa
+ * components:
+ *   schemas:
+ *     comentario:
+ *       type: object
+ *       required:
+ *         - showId
+ *         - show
+ *         - comentario
+ *       properties:
+ *         showId:
+ *           type: string
+ *           description: El id del show que se comenta
+ *         show:
+ *           type: string
+ *           description: el nombre del show
+ *         comentario:
+ *           type: string
+ *           description: el cuerpo del comentario escrito
+ *       example: 
+ *         showId: 1
+ *         show: The Dome
+ *         comentario: <p>Me gusta</p> 
+ */
+
+/**
+ * @swagger
+ * /api/shows:
+ *   get:
+ *     summary: Retorna la lista de todos los shows en la API de TVMaze
+ *     responses:
+ *       200: 
+ *         description: Se realiza la peticion exitosamente
+ *         content:
+ *           application/json:
  */
 router.get('/api/shows', (req, res) => {
     // URI de la api de tvmaze
@@ -33,14 +60,25 @@ router.get('/api/shows', (req, res) => {
     get_data(url);
 })
 
+
 /**
  * @swagger
- * /api/shows/:id(\\d+):
- * get:
- *  description: obtiene datos de api tvMaze con el id especificado en la ruta (regex)
- *  responses:
- *      '200':
- *          description: Respuesta exitosa
+ * /api/shows/{id}:
+ *   get:
+ *     summary: Retorna el show con el id de la ruta
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Id del show de la api de TVMaze
+ *     responses:
+ *       200: 
+ *         description: Se realiza la peticion exitosamente
+ *         content:
+ *           application/json:
+ *       400: 
+ *         description: No se encontro show con este id
+ * 
  */
 router.get('/api/shows/:id(\\d+)', ensureAuth, (req, res) => {
     //
@@ -65,11 +103,13 @@ router.get('/api/shows/:id(\\d+)', ensureAuth, (req, res) => {
 /**
  * @swagger
  * /api/login:
- * get:
- *  description: retorna la vista del login
- *  responses:
- *      '200':
- *          description: Respuesta exitosa
+ *   get:
+ *     summary: Retorna la vista para el login
+ *     responses:
+ *       200: 
+ *         description: Se realiza la peticion exitosamente
+ *         content:
+ *           layout:
  */
 router.get('/api/login', ensureGuest, (req, res) => {
     res.render('login', {
@@ -80,11 +120,13 @@ router.get('/api/login', ensureGuest, (req, res) => {
 /**
  * @swagger
  * /dashboard:
- * get:
- *  description: retorna la vista del dashboard
- *  responses:
- *      '200':
- *          description: Respuesta exitosa
+ *   get:
+ *     summary: Retorna la vista del dashboard
+ *     responses:
+ *       200: 
+ *         description: Se realiza la peticion exitosamente
+ *         content:
+ *           layout:
  */
 router.get('/dashboard', ensureAuth,async (req, res) => {
     try {
@@ -102,12 +144,16 @@ router.get('/dashboard', ensureAuth,async (req, res) => {
 
 /**
  * @swagger
- * /api/comentarios/:showId(\\d+):
- * get:
- *  description: muestra los comentarios almacenados en la base de datos con el id especificado
- *  responses:
- *      '200':
- *          description: Respuesta exitosa
+ * /api/comentarios/{showId}:
+ *   get:
+ *     summary: muestra los comentarios almacenados en la base de datos con el id especificado
+ *     responses:
+ *       200: 
+ *         description: Se realiza la peticion exitosamente
+ *         content:
+ *           layout:
+ *       400: 
+ *         description: No se encontraron comentarios
  */
 router.get('/api/comentarios/:showId(\\d+)', ensureAuth, async (req, res) => {
     try {
@@ -124,11 +170,13 @@ router.get('/api/comentarios/:showId(\\d+)', ensureAuth, async (req, res) => {
 /**
  * @swagger
  * /api/comentarios/add:
- * get:
- *  description: mostrar la pagina para agregar comentarios
- *  responses:
- *      '200':
- *          description: Respuesta exitosa
+ *   get:
+ *     summary: retorna la vista para agregar comentarios
+ *     responses:
+ *       200: 
+ *         description: Se realiza la peticion exitosamente
+ *         content:
+ *           layout:
  */
 router.get('/api/comentarios/add', ensureAuth, (req, res) => {
     res.render('comentarios/add');
@@ -137,11 +185,15 @@ router.get('/api/comentarios/add', ensureAuth, (req, res) => {
 /**
  * @swagger
  * /api/comentarios/add:
- * post:
- *  description: metodo asincrono para crear un documento con el comentario de la serie indicada
- *  responses:
- *      '200':
- *          description: Respuesta exitosa
+ *   post:
+ *     summary: metodo asincrono para crear un documento con el comentario de la serie indicada
+ *     responses:
+ *       200: 
+ *         description: Se realiza la peticion exitosamente
+ *         content:
+ *           layout:
+ *       400: 
+ *         description: Error al crear comentario
  */
 router.post('/api/comentarios/add', ensureAuth, async (req, res) => {
     try {

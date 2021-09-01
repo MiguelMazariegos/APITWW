@@ -20,20 +20,24 @@ connectDB();
 const app = express();
 
 // Documentacion con swagger
-const swaggerOptions = {
-    swaggerDefinition: {
+const options = {
+    definition: {
+        openapi: "3.0.0",
         info: {
-            title: 'RESTful API TVMaze',
-            description: 'RESTful API de prueba tecnica para TWW',
-            contact: {
-                name: 'Miguel Mazariegos'
+            title: "RESTful API TVMaze",
+            description: "RESTful API de prueba tecnica para TWW",
+            version: "1.0.0"
+        },
+        servers: [
+            {
+                url: "http://localhost:3000"
             }
-        }
+        ],
     },
-    apis: [`${__dirname}/routes*.js`],
+    apis: ["./routes/*.js"],
 };
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
+const swaggerDocs = swaggerJsDoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Body parser
